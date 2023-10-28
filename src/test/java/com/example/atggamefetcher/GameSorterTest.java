@@ -50,6 +50,12 @@ class GameSorterTest {
     }
 
     @Test
+    void verifyThereAreOnlyTwoGamesAddForToday() {
+        List<Game> addTodayGames = gameSorter.addTodaysGames(mockedGames);
+        assertEquals(2, addTodayGames.size());
+    }
+
+    @Test
     void verifyThatThereAreOnlyTwoGamesToday() {
         List<Game> gamesForToday = gameSorter.getGamesForToday(mockedGames);
         assertEquals(15, gamesForToday.size());

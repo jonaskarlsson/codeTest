@@ -1,22 +1,20 @@
-package com.example.atggamefetcher;
+package com.example.atggamefetcher.pojo;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Game implements Comparable<Game> {
+public class BigGameDate implements Comparable<BigGameDate> {
 
 
     private String name;
     private String type;
 
     private LocalDateTime start;
-    private Boolean bigGame;
 
-    public Game(String name, String type, LocalDateTime start, Boolean bigGame) {
+    public BigGameDate(String name, String type, LocalDateTime start, Boolean bigGame) {
         this.name = name;
         this.type = type;
         this.start = start;
-        this.bigGame = bigGame;
     }
 
     public String getName() {
@@ -43,16 +41,8 @@ public class Game implements Comparable<Game> {
         this.start = start;
     }
 
-    public Boolean getBigGame() {
-        return bigGame;
-    }
-
-    public void setBigGame(Boolean bigGame) {
-        this.bigGame = bigGame;
-    }
-
     @Override
-    public int compareTo(Game games) {
+    public int compareTo(BigGameDate games) {
         return start.compareTo(games.start);
     }
 
@@ -61,7 +51,7 @@ public class Game implements Comparable<Game> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Game game = (Game) o;
+        BigGameDate game = (BigGameDate) o;
 
         if (!Objects.equals(name, game.name)) return false;
         return Objects.equals(type, game.type);
