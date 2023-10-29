@@ -33,29 +33,23 @@ public class AtgGameFetcherApplication {
 
     @PostMapping("/sortGames")
     public String postGames(@RequestBody List<GameForJson> games) throws IOException {
-
-        String json = null;
-
         List<Game> gamesForToday;
         GameSorter gameSorter = new GameSorter();
-
         GameListCreator gameListCreator = new GameListCreator();
 
         List<Game> gamesWithBigGames = gameListCreator.getGamesIncludingBigGames(games);
-
         gamesForToday = gameSorter.getGamesForToday(gamesWithBigGames);
+
         ObjectMapper objectMapper = new ObjectMapper();
         // Needed to handle JSR310 Java 8 Date/Time API
         objectMapper.registerModule(new JavaTimeModule());
+        String json = null;
         try {
             json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(gamesForToday);
         } catch (Exception e) {
             // Would normally log this and handle it using a logger
             e.printStackTrace();
         }
-
         return json;
     }
-
-
 }

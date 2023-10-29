@@ -96,7 +96,6 @@ class GameListCreatorTest {
         gameForJson.setType("V64");
         gameListCreator.addGameToTodayGames(gameForJson,false);
         assertEquals(1, gameListCreator.getTodayGames().size());
-
     }
 
     @Test

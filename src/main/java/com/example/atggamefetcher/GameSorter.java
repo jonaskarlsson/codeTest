@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GameSorter {
-
     List<Game> todayGames;
     List<Game> leftOverGames;
 
@@ -19,13 +18,13 @@ public class GameSorter {
 
     public List<Game> getGamesForToday(List<Game> games) {
         todayGames = new ArrayList<>();
-        addTodaysGames(games);
+        addTodayGames(games);
         addBigGames(games);
         addLeftOverGames(games);
         return todayGames;
     }
 
-    public List<Game> addTodaysGames(List<Game> games) {
+    public List<Game> addTodayGames(List<Game> games) {
         todayGames = games.stream()
             .filter(game -> game.getStart().getDayOfYear()== LocalDateTime.now().getDayOfYear())
             .sorted(Comparator.comparing(Game::getStart))

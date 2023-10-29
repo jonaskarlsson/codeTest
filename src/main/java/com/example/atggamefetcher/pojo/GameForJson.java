@@ -5,10 +5,8 @@ import java.util.Objects;
 
 public class GameForJson implements Comparable<GameForJson> {
 
-
     private String name;
     private String type;
-
     private LocalDateTime start;
 
     public String getName() {

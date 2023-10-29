@@ -10,9 +10,7 @@ import java.time.Month;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameTest {
-
     private static final String EXAMPLE_V_64_GAME = "Example V64 game";
-
     private Game game;
 
     @BeforeEach
