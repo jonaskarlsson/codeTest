@@ -1,5 +1,6 @@
 package com.example.atggamefetcher;
 
+import com.example.atggamefetcher.pojo.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
 package com.example.atggamefetcher;
 
+import com.example.atggamefetcher.pojo.Game;
 import com.example.atggamefetcher.pojo.GameForJson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

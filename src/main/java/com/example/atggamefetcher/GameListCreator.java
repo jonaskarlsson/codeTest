@@ -1,5 +1,6 @@
 package com.example.atggamefetcher;
 
+import com.example.atggamefetcher.pojo.Game;
 import com.example.atggamefetcher.pojo.GameForJson;
 
 import java.io.IOException;

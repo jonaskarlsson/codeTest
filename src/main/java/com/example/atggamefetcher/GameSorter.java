@@ -1,5 +1,7 @@
 package com.example.atggamefetcher;
 
+import com.example.atggamefetcher.pojo.Game;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;

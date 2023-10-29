@@ -1,4 +1,4 @@
-package com.example.atggamefetcher;
+package com.example.atggamefetcher.pojo;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
