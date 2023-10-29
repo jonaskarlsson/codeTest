@@ -34,8 +34,6 @@ public class GameListCreator {
     public List<Game> getGamesIncludingBigGames(List<GameForJson> gameForJsons) {
         todayGames = new ArrayList<>();
         for (GameForJson game : gameForJsons) {
-            //Set gameDay to start of day
-            game.setStart(game.getStart().toLocalDate().atStartOfDay());
             if (Boolean.TRUE.equals(isBigGameDay(game))) {
                 addGameToTodayGames(game, true);
             } else if (Boolean.TRUE.equals(isBigGameType(game))) {
@@ -51,8 +49,8 @@ public class GameListCreator {
         return todayGames;
     }
 
-    public void addGameToTodayGames(GameForJson game, Boolean bigGame) {
-        todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), bigGame));
+    public void addGameToTodayGames(GameForJson gameForJson, Boolean bigGame) {
+        todayGames.add(new Game(gameForJson.getName(), gameForJson.getType(), gameForJson.getStart(), bigGame));
     }
 
     public Boolean isBigGameV86(GameForJson game) {
@@ -68,7 +66,11 @@ public class GameListCreator {
     }
 
     public Boolean isBigGameDay(GameForJson game) {
-        return bigGameDates.contains(game.getStart());
+        GameForJson gameForJson = new GameForJson();
+        gameForJson.setName(game.getName());
+        gameForJson.setType(game.getType());
+        gameForJson.setStart(game.getStart().toLocalDate().atStartOfDay());
+        return bigGameDates.contains(gameForJson.getStart());
     }
 
     public Boolean isBigGameType(GameForJson game) {

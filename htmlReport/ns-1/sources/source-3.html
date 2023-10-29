@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">GameSorter</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (5/5)
+    (0/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (23/23)
+    (0/23)
   </span>
 </td>
 </tr>
@@ -90,41 +90,41 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    List&lt;Game&gt; todayGames;
 &nbsp;    List&lt;Game&gt; leftOverGames;
 &nbsp;
-<b class="fc">&nbsp;    public GameSorter() {</b>
-<b class="fc">&nbsp;        todayGames = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;    public GameSorter() {</b>
+<b class="nc">&nbsp;        todayGames = new ArrayList&lt;&gt;();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public List&lt;Game&gt; getGamesForToday(List&lt;Game&gt; games) {
-<b class="fc">&nbsp;        todayGames = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;        addTodayGames(games);</b>
-<b class="fc">&nbsp;        addBigGames(games);</b>
-<b class="fc">&nbsp;        addLeftOverGames(games);</b>
-<b class="fc">&nbsp;        return todayGames;</b>
+<b class="nc">&nbsp;        todayGames = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        addTodayGames(games);</b>
+<b class="nc">&nbsp;        addBigGames(games);</b>
+<b class="nc">&nbsp;        addLeftOverGames(games);</b>
+<b class="nc">&nbsp;        return todayGames;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public List&lt;Game&gt; addTodayGames(List&lt;Game&gt; games) {
-<b class="fc">&nbsp;        todayGames = games.stream()</b>
-<b class="fc">&nbsp;            .filter(game -&gt; game.getStart().getDayOfYear()== LocalDateTime.now().getDayOfYear())</b>
-<b class="fc">&nbsp;            .sorted(Comparator.comparing(Game::getStart))</b>
-<b class="fc">&nbsp;            .collect(Collectors.toList());</b>
-<b class="fc">&nbsp;        return todayGames;</b>
+<b class="nc">&nbsp;        todayGames = games.stream()</b>
+<b class="nc">&nbsp;            .filter(game -&gt; game.getStart().getDayOfYear()== LocalDateTime.now().getDayOfYear())</b>
+<b class="nc">&nbsp;            .sorted(Comparator.comparing(Game::getStart))</b>
+<b class="nc">&nbsp;            .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;        return todayGames;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public List&lt;Game&gt; addBigGames(List&lt;Game&gt; games) {
-<b class="fc">&nbsp;        List&lt;Game&gt; bigGames = games.stream()</b>
-<b class="fc">&nbsp;            .filter(game -&gt; Boolean.TRUE.equals(game.getBigGame()))</b>
-<b class="fc">&nbsp;            .sorted(Comparator.comparing(Game::getStart)).toList();</b>
-<b class="fc">&nbsp;        todayGames.addAll(bigGames);</b>
-<b class="fc">&nbsp;        return bigGames;</b>
+<b class="nc">&nbsp;        List&lt;Game&gt; bigGames = games.stream()</b>
+<b class="nc">&nbsp;            .filter(game -&gt; Boolean.TRUE.equals(game.getBigGame()))</b>
+<b class="nc">&nbsp;            .sorted(Comparator.comparing(Game::getStart)).toList();</b>
+<b class="nc">&nbsp;        todayGames.addAll(bigGames);</b>
+<b class="nc">&nbsp;        return bigGames;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public List&lt;Game&gt; addLeftOverGames(List&lt;Game&gt; games) {
-<b class="fc">&nbsp;        leftOverGames = games.stream()</b>
-<b class="fc">&nbsp;            .filter(game -&gt; game.getStart().getDayOfYear()!= LocalDateTime.now().getDayOfYear())</b>
-<b class="fc">&nbsp;            .filter(game -&gt; Boolean.FALSE.equals(game.getBigGame()))</b>
-<b class="fc">&nbsp;            .sorted(Comparator.comparing(Game::getStart)).toList();</b>
-<b class="fc">&nbsp;        todayGames.addAll(leftOverGames);</b>
-<b class="fc">&nbsp;        return leftOverGames;</b>
+<b class="nc">&nbsp;        leftOverGames = games.stream()</b>
+<b class="nc">&nbsp;            .filter(game -&gt; game.getStart().getDayOfYear()!= LocalDateTime.now().getDayOfYear())</b>
+<b class="nc">&nbsp;            .filter(game -&gt; Boolean.FALSE.equals(game.getBigGame()))</b>
+<b class="nc">&nbsp;            .sorted(Comparator.comparing(Game::getStart)).toList();</b>
+<b class="nc">&nbsp;        todayGames.addAll(leftOverGames);</b>
+<b class="nc">&nbsp;        return leftOverGames;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -150,7 +150,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-10-29 15:52</div>
+    <div style="float:right;">generated on 2023-10-29 16:44</div>
 </div>
 </body>
 </html>
