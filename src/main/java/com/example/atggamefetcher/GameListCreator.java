@@ -2,8 +2,6 @@ package com.example.atggamefetcher;
 
 import com.example.atggamefetcher.pojo.GameForJson;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,16 +11,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GameListCreator {
 
-    List<Game> todayGames;
-    List<Game> leftOverGames;
-    public List<LocalDateTime> bigGameDates;
-    public List<String> bigGameTypes;
+    private List<Game> todayGames;
+    private final List<LocalDateTime> bigGameDates;
+    private final List<String> bigGameTypes;
 
     public GameListCreator() throws IOException {
         todayGames = new ArrayList<>();
@@ -30,39 +25,58 @@ public class GameListCreator {
         bigGameTypes = readBigGameTypes();
     }
 
+    public List<Game> getTodayGames() {
+        return todayGames;
+    }
+
     public List<Game> getGamesIncludingBigGames(List<GameForJson> gameForJsons) {
         todayGames = new ArrayList<>();
-        for(int i = 0; i < gameForJsons.size(); i++) {
-            GameForJson game = gameForJsons.get(i);
+        for (GameForJson game : gameForJsons) {
             //Set gameDay to start of day
             game.setStart(game.getStart().toLocalDate().atStartOfDay());
-            if(bigGameDates.contains(game.getStart()) ) {
-                todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), true));
-            } else if (bigGameTypes.contains(game.getType())) {
-                if(game.getType().equalsIgnoreCase("V86") && game.getStart().getDayOfWeek() == DayOfWeek.WEDNESDAY) {
-                    todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), true));
-                } else if (game.getType().equalsIgnoreCase("V75") && game.getStart().getDayOfWeek() == DayOfWeek.SATURDAY) {
-                    todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), true));
-                } else if (game.getType().equalsIgnoreCase("GS75") && game.getStart().getDayOfWeek() == DayOfWeek.SUNDAY) {
-                    todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), true));
-                } else {
-                    todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), false));
-                }
-
+            if (Boolean.TRUE.equals(isBigGameDay(game))) {
+                addGameToTodayGames(game, true);
+            } else if (Boolean.TRUE.equals(isBigGameType(game))) {
+                if (Boolean.TRUE.equals(isBigGameV86(game))) {
+                    addGameToTodayGames(game, true);
+                } else if (Boolean.TRUE.equals(isBigGameV75(game))) {
+                    addGameToTodayGames(game, true);
+                } else addGameToTodayGames(game, Boolean.TRUE.equals(isBigGameGS75(game)));
             } else {
-                todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), false));
+                addGameToTodayGames(game, false);
             }
         }
         return todayGames;
     }
 
+    public void addGameToTodayGames(GameForJson game, Boolean bigGame) {
+        todayGames.add(new Game(game.getName(), game.getType(), game.getStart(), bigGame));
+    }
 
+    public Boolean isBigGameV86(GameForJson game) {
+        return game.getType().equalsIgnoreCase("V86") && game.getStart().getDayOfWeek() == DayOfWeek.WEDNESDAY;
+    }
 
+    public Boolean isBigGameV75(GameForJson game) {
+        return game.getType().equalsIgnoreCase("V75") && game.getStart().getDayOfWeek() == DayOfWeek.SATURDAY;
+    }
+
+    public Boolean isBigGameGS75(GameForJson game) {
+        return game.getType().equalsIgnoreCase("GS75") && game.getStart().getDayOfWeek() == DayOfWeek.SUNDAY;
+    }
+
+    public Boolean isBigGameDay(GameForJson game) {
+        return bigGameDates.contains(game.getStart());
+    }
+
+    public Boolean isBigGameType(GameForJson game) {
+        return bigGameTypes.contains(game.getType());
+    }
 
     public List<LocalDateTime> readBigGameDates() throws IOException {
-        String[] bigGameDates = readCommaSeperatedFile("src/main/resources/bigGameDates.csv");
+        String[] bigGameDatesFromConfig = readCommaSeperatedFile("src/main/resources/bigGameDates.csv");
         List<LocalDateTime> bigGameDatesList = new ArrayList<>();
-        for (String bigGameDate : bigGameDates) {
+        for (String bigGameDate : bigGameDatesFromConfig) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd");
             LocalDateTime date = LocalDate.parse(bigGameDate, formatter).atStartOfDay();
             bigGameDatesList.add(date);
@@ -71,9 +85,9 @@ public class GameListCreator {
     }
 
     public List<String> readBigGameTypes() throws IOException {
-        String[] bigGameTypes = readCommaSeperatedFile("src/main/resources/bigGameTypes.csv");
+        String[] bigGameTypesFromConfig = readCommaSeperatedFile("src/main/resources/bigGameTypes.csv");
         List<String> bigGameTypesList = new ArrayList<>();
-        Collections.addAll(bigGameTypesList, bigGameTypes);
+        Collections.addAll(bigGameTypesList, bigGameTypesFromConfig);
         return bigGameTypesList;
     }
 
@@ -81,30 +95,5 @@ public class GameListCreator {
         Path filePath = Path.of(path);
         String content = Files.readString(filePath);
         return content.split(",");
-    }
-
-    public List<Game> addTodaysGames(List<Game> games) {
-        todayGames = games.stream()
-            .filter(game -> game.getStart().getDayOfYear()== LocalDateTime.now().getDayOfYear())
-            .sorted(Comparator.comparing(Game::getStart))
-            .collect(Collectors.toList());
-        return todayGames;
-    }
-
-    public List<Game> addBigGames(List<Game> games) {
-        List<Game> bigGames = games.stream()
-            .filter(game -> Boolean.TRUE.equals(game.getBigGame()))
-            .sorted(Comparator.comparing(Game::getStart)).toList();
-        todayGames.addAll(bigGames);
-        return bigGames;
-    }
-
-    public List<Game> addLeftOverGames(List<Game> games) {
-        leftOverGames = games.stream()
-            .filter(game -> game.getStart().getDayOfYear()!= LocalDateTime.now().getDayOfYear())
-            .filter(game -> Boolean.FALSE.equals(game.getBigGame()))
-            .sorted(Comparator.comparing(Game::getStart)).toList();
-        todayGames.addAll(leftOverGames);
-        return leftOverGames;
     }
 }

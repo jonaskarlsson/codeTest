@@ -11,12 +11,6 @@ public class GameForJson implements Comparable<GameForJson> {
 
     private LocalDateTime start;
 
-    public GameForJson(String name, String type, LocalDateTime start, Boolean bigGame) {
-        this.name = name;
-        this.type = type;
-        this.start = start;
-    }
-
     public String getName() {
         return name;
     }

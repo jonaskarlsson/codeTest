@@ -11,12 +11,6 @@ public class BigGameDate implements Comparable<BigGameDate> {
 
     private LocalDateTime start;
 
-    public BigGameDate(String name, String type, LocalDateTime start, Boolean bigGame) {
-        this.name = name;
-        this.type = type;
-        this.start = start;
-    }
-
     public String getName() {
         return name;
     }

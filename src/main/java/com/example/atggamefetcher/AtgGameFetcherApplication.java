@@ -1,7 +1,6 @@
 package com.example.atggamefetcher;
 
 import com.example.atggamefetcher.pojo.GameForJson;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.SpringApplication;
@@ -31,7 +30,7 @@ public class AtgGameFetcherApplication {
         return String.format("Hello %s!", name);
     }
 
-    @RequestMapping(value = "/games", method = RequestMethod.POST)
+    @PostMapping("/sortGames")
     public String postGames(@RequestBody List<GameForJson> games) throws IOException {
 
         String json = null;

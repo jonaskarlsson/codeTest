@@ -11,12 +11,6 @@ public class GameType implements Comparable<GameType> {
 
     private LocalDateTime start;
 
-    public GameType(String name, String type, LocalDateTime start, Boolean bigGame) {
-        this.name = name;
-        this.type = type;
-        this.start = start;
-    }
-
     public String getName() {
         return name;
     }

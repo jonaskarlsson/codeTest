@@ -45,10 +45,6 @@ class GameSorterTest {
         gameSorter = new GameSorter();
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void verifyThereAreOnlyTwoGamesAddForToday() {
         List<Game> addTodayGames = gameSorter.addTodaysGames(mockedGames);
