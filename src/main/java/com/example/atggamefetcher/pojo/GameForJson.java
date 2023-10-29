@@ -1,3 +1,4 @@
+// Copyright AB Trav och Galopp (556180-4161)
 package com.example.atggamefetcher.pojo;
 
 import java.time.LocalDateTime;

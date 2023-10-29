@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/out/artifacts/AtgGameFetcher_jar/AtgGameFetcher.jar

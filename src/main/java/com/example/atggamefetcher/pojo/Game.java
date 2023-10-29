@@ -1,14 +1,12 @@
+// Copyright AB Trav och Galopp (556180-4161)
 package com.example.atggamefetcher.pojo;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Game implements Comparable<Game> {
-
-
     private String name;
     private String type;
-
     private LocalDateTime start;
     private Boolean bigGame;
 
